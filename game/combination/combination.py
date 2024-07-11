@@ -2,7 +2,7 @@
 # of combo selected that cards who are play in nominal, then other cards in non-increasing order
 
 from utils.utils import check_is_it_card
-from determine_combination import determine_combination
+from game.combination.determine_combination import determine_combination
 from game.card.card import Card
 
 
@@ -16,10 +16,11 @@ class Combination:
         pass
 
     def is_correct_input(self):
-        assert (len(self.cards) == 5)
+        if len(self.cards) != 5:
+            raise Exception("Not valid number of cards")
         for card in self.cards:
             if not check_is_it_card(card):
-                raise "Your input contains invalid data"
+                raise Exception("Your input contains invalid data")
 
     def __init__(self, cards):
         self.cards = cards
@@ -28,7 +29,24 @@ class Combination:
         self.rank_combination = _rank_combination
         self.sorted_cards = _sorted_cards
 
+    def print_sorted_combination(self):
+        print('[', end='')
+        print(", ".join([str(card) for card in self.sorted_cards]), end='')
+        print(']')
+
+    def __eq__(self, other):
+        if self.rank_combination != other.rank_combination:
+            return False
+
+        for j in range(0, len(self.sorted_cards)):
+            if self.sorted_cards[j].get_rank() != other.sorted_cards[j].get_rank():
+                return False
+
+        return True
+
     def __lt__(self, other):
+        if self == other:
+            return False
         if self.rank_combination == other.rank_combination:
             return self.sorted_cards < other.sorted_cards
         return self.rank_combination < other.rank_combination

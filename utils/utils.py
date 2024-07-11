@@ -7,8 +7,8 @@ def check_elements_same_type(array):
 
 def check_is_it_card(__card):
     from game.card.card import Card
-    from available import available_ranks, available_suits
-    _card = Card(2, 'D')
+    from utils.available import available_ranks, available_suits
+    _card = Card('2', 'D')
     if type(__card) != type(_card):
         return False
 

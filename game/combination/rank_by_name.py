@@ -9,5 +9,5 @@ get_combination_rank_by_name = {
     "Full_house": 6,
     "Four_of_a_kind": 7,
     "Straight_flush": 8,
-    "Flush_Royale": 9
+    "Royal_flush": 9
 }

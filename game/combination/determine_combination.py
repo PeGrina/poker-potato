@@ -1,9 +1,12 @@
+from game.card.get_card_rank import get_value_rank
+
+
 def is_one_pair(ordered_cards):
     for i in range(0, len(ordered_cards) - 1):
         if ordered_cards[i].get_rank() == ordered_cards[i + 1].get_rank():
             new_order = [ordered_cards[i], ordered_cards[i + 1]]
             for j in range(0, i):
-                new_order.append(ordered_cards[i])
+                new_order.append(ordered_cards[j])
             for j in range(i + 2, len(ordered_cards)):
                 new_order.append(ordered_cards[j])
             return True, new_order
@@ -49,7 +52,7 @@ def is_three_of_a_kind(ordered_cards):
         if ordered_cards[i].get_rank() == ordered_cards[i + 1].get_rank() and ordered_cards[i + 1].get_rank() == ordered_cards[i + 2].get_rank():
             new_order = [ordered_cards[i], ordered_cards[i + 1], ordered_cards[i + 2]]
             for j in range(0, i):
-                new_order.append(ordered_cards[i])
+                new_order.append(ordered_cards[j])
             for j in range(i + 3, len(ordered_cards)):
                 new_order.append(ordered_cards[j])
             return True, new_order
@@ -92,7 +95,7 @@ def is_straight(ordered_cards):
 def is_flush(ordered_cards):
     flag = True
     for card in ordered_cards:
-        if card.suit != ordered_cards[0].suit:
+        if card.get_suit() != ordered_cards[0].get_suit():
             flag = False
     return flag, ordered_cards
 
@@ -120,8 +123,8 @@ def is_four_of_a_kind(ordered_cards):
             i + 2].get_rank() and ordered_cards[i + 2].get_rank() == ordered_cards[i + 3].get_rank():
             new_order = [ordered_cards[i], ordered_cards[i + 1], ordered_cards[i + 2], ordered_cards[i + 3]]
             for j in range(0, i):
-                new_order.append(ordered_cards[i])
-            for j in range(i + 3, len(ordered_cards)):
+                new_order.append(ordered_cards[j])
+            for j in range(i + 4, len(ordered_cards)):
                 new_order.append(ordered_cards[j])
             return True, new_order
     return False, ordered_cards
@@ -135,9 +138,11 @@ def is_straight_flush(ordered_cards):
     return False, ordered_cards
 
 
-def is_flush_royale(ordered_cards):
+def is_royal_flush(ordered_cards):
     _f, _ = is_straight_flush(ordered_cards)
-    if _f and _[0].get_rank() == 'A':
+    if _f:
+        pass
+    if _f and _[0].get_rank() == get_value_rank['A'][-1]:
         return True, _
     return False, ordered_cards
 
@@ -146,7 +151,7 @@ def determine_combination(cards):
     # order in non-increasing
     ordered_cards = sorted(cards)
     ordered_cards = ordered_cards[::-1]
-    f, order = is_flush_royale(ordered_cards)
+    f, order = is_royal_flush(ordered_cards)
     if f:
         return 9, order
     f, order = is_straight_flush(ordered_cards)
