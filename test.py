@@ -1,5 +1,5 @@
 
-from card import Card
+from game.card import Card
 
 c = Card(2, 3)
 

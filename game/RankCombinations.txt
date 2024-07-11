@@ -1,0 +1,10 @@
+0 - High card
+1 - One pair (two cards of same rank)
+2 - Two pairs (two pairs of adjacents rank)
+3 - Three of a kind (three cards of same rank)
+4 - Straight (Five cards in order, suits do not match, also Ace can be first card)
+5 - Flush (Five cards of same suite, value of flush is determined by highest card)
+6 - Full house (Three cards of one rank, and two cards of another rank. Full houses are consider "____ full of ____" where the first blank is the set of three and the second blank is the pair. Compare first by set, then by pair)
+7 - Four of cards of same rank
+8 - Straight flush (Flush and straight at the same time)
+9 - Royal flush (A royal flush is actually just a straight flush of the cards 10♢-J♢-Q♢-K♢-A♢. Suit does not matter.)

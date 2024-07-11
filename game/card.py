@@ -1,5 +1,3 @@
-
-
 class Card:
 
     def __init__(self):
@@ -9,3 +7,5 @@ class Card:
         self.suit = suit
         self.rank = rank
 
+    def __lt__(self, other):
+        return self.rank < other.rank

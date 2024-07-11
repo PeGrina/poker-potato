@@ -1,0 +1,2 @@
+ TODO: adds outs for hand
+ TODO: adds percents for hand
