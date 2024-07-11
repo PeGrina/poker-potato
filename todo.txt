@@ -1,2 +1,3 @@
  TODO: adds outs for hand
  TODO: adds percents for hand
+ TODO: adds test for combinations

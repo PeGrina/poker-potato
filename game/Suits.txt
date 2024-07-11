@@ -1,0 +1,5 @@
+Suits and value for it
+diamonds (♦️) - D
+clubs (♣️) - C
+hearts (♥️) - H
+spades (♠️) - S

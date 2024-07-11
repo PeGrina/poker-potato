@@ -1,6 +1,6 @@
 
-from game.card import Card
+from game.card.card import Card
 
-c = Card(2, 3)
+c = Card('2', 'H')
 
 print(type(c))
