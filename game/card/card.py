@@ -1,7 +1,6 @@
 from utils.available import available_ranks, available_suits
 
-from get_card_rank import get_value_rank
-
+from game.card.get_card_rank import get_value_rank
 
 class Card:
 
@@ -12,8 +11,13 @@ class Card:
         self.rank = rank
         self.suit = suit
 
-        assert self.suit in available_suits
-        assert self.rank in available_ranks
+        if not rank in available_ranks and not suit in available_suits:
+            raise Exception("Rank and Suit are invalid")
+
+        if not self.suit in available_suits:
+            raise Exception("Suit is invalid")
+        if not self.rank in available_ranks:
+            raise Exception("Rank is invalid")
 
     def get_rank(self):
         return get_value_rank[self.rank][-1]

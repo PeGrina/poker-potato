@@ -18,7 +18,8 @@ class Combination:
     def is_correct_input(self):
         assert (len(self.cards) == 5)
         for card in self.cards:
-            assert check_is_it_card(card)
+            if not check_is_it_card(card):
+                raise "Your input contains invalid data"
 
     def __init__(self, cards):
         self.cards = cards
