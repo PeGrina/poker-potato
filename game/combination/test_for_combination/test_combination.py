@@ -134,14 +134,14 @@ class TestCombination(unittest.TestCase):
 
     def test_straight_flush1(self):
         c = create_combination([Card('A', 'H'), Card('2', 'H'), Card('4', 'H'), Card('5', 'H'), Card('3', 'H')])
-        c.print_sorted_combination()
+        # c.print_sorted_combination()
 
         self.assertEqual(len(c.sorted_cards), 5)
         self.assertEqual(c.rank_combination, get_combination_rank_by_name["Straight_flush"])
 
     def test_straight_flush2(self):
         c = create_combination([Card('6', 'H'), Card('2', 'H'), Card('4', 'H'), Card('5', 'H'), Card('3', 'H')])
-        c.print_sorted_combination()
+        # c.print_sorted_combination()
 
         self.assertEqual(len(c.sorted_cards), 5)
         self.assertEqual(c.rank_combination, get_combination_rank_by_name["Straight_flush"])
@@ -159,6 +159,41 @@ class TestCombination(unittest.TestCase):
 
         self.assertEqual(len(c.sorted_cards), 5)
         self.assertEqual(c.rank_combination, get_combination_rank_by_name["Royal_flush"])
+
+    def test_less_operator1(self):
+        c1 = create_combination([Card('A', 'S'), Card('T', 'S'), Card('Q', 'S'), Card('K', 'S'), Card('J', 'S')])
+        c2 = create_combination([Card('A', 'S'), Card('T', 'S'), Card('Q', 'S'), Card('K', 'S'), Card('J', 'H')])
+
+        self.assertEqual(c1 < c2, False)
+        self.assertEqual(c2 < c1, True)
+
+    def test_less_operator2(self):
+        c1 = create_combination([Card('A', 'S'), Card('A', 'C'), Card('Q', 'S'), Card('Q', 'H'), Card('J', 'S')])
+        c2 = create_combination([Card('A', 'H'), Card('T', 'D'), Card('A', 'D'), Card('T', 'H'), Card('J', 'H')])
+
+        self.assertEqual(c1 < c2, False)
+        self.assertEqual(c2 < c1, True)
+
+    def test_less_operator3(self):
+        c1 = create_combination([Card('K', 'S'), Card('K', 'C'), Card('Q', 'S'), Card('Q', 'H'), Card('J', 'S')])
+        c2 = create_combination([Card('A', 'H'), Card('T', 'D'), Card('A', 'D'), Card('T', 'H'), Card('J', 'H')])
+
+        self.assertEqual(c1 > c2, False)
+        self.assertEqual(c2 > c1, True)
+
+    def test_less_operator3(self):
+        c1 = create_combination([Card('K', 'S'), Card('K', 'C'), Card('Q', 'S'), Card('Q', 'H'), Card('Q', 'S')])
+        c2 = create_combination([Card('A', 'H'), Card('T', 'D'), Card('A', 'D'), Card('T', 'H'), Card('A', 'H')])
+
+        self.assertEqual(c1 > c2, False)
+        self.assertEqual(c2 > c1, True)
+
+    def test_less_operator4(self):
+        c1 = create_combination([Card('A', 'S'), Card('A', 'C'), Card('K', 'S'), Card('K', 'H'), Card('K', 'C')])
+        c2 = create_combination([Card('A', 'H'), Card('A', 'C'), Card('K', 'D'), Card('K', 'H'), Card('A', 'S')])
+
+        self.assertEqual(c1 > c2, False)
+        self.assertEqual(c2 > c1, True)
 
 
 if __name__ == "__main__":
