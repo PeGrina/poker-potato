@@ -181,14 +181,14 @@ class TestCombination(unittest.TestCase):
         self.assertEqual(c1 > c2, False)
         self.assertEqual(c2 > c1, True)
 
-    def test_less_operator3(self):
+    def test_less_operator4(self):
         c1 = create_combination([Card('K', 'S'), Card('K', 'C'), Card('Q', 'S'), Card('Q', 'H'), Card('Q', 'S')])
         c2 = create_combination([Card('A', 'H'), Card('T', 'D'), Card('A', 'D'), Card('T', 'H'), Card('A', 'H')])
 
         self.assertEqual(c1 > c2, False)
         self.assertEqual(c2 > c1, True)
 
-    def test_less_operator4(self):
+    def test_less_operator5(self):
         c1 = create_combination([Card('A', 'S'), Card('A', 'C'), Card('K', 'S'), Card('K', 'H'), Card('K', 'C')])
         c2 = create_combination([Card('A', 'H'), Card('A', 'C'), Card('K', 'D'), Card('K', 'H'), Card('A', 'S')])
 
