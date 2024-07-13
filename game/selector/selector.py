@@ -3,10 +3,8 @@ from game.combination.combination import Combination
 
 class Selector:
 
-    def __init__(self):
-        self.best_combination = None
-
     def __init__(self, cards):
+        self.best_combination = None
         self.cards = cards
         self.select_combination()
 

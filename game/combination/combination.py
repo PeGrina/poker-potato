@@ -4,6 +4,7 @@
 from utils.utils import check_is_it_card
 from game.combination.determine_combination import determine_combination
 from game.card.card import Card
+from game.combination.rank_names import get_combination_name_by_rank
 
 
 class Combination:
@@ -28,6 +29,15 @@ class Combination:
         _rank_combination, _sorted_cards = determine_combination(self.cards)
         self.rank_combination = _rank_combination
         self.sorted_cards = _sorted_cards
+
+    def get_sorted_cards_str(self):
+        cards = []
+        for card in self.sorted_cards:
+            cards.append(str(card))
+        return cards
+
+    def get_rank_str(self):
+        return get_combination_name_by_rank[self.rank_combination]
 
     def print_sorted_combination(self):
         print('[', end='')
