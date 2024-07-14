@@ -2,10 +2,7 @@ import React from 'react';
 import Suit from './Suit';
 import Rank from './Rank';
 import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import Grid from '@mui/material/Grid';
 
 const PlayingCard = (props) => {
     const [suit, setSuit] = React.useState(0);
@@ -24,8 +21,14 @@ const PlayingCard = (props) => {
         }
     }
     return (<Box sx={{minWidth: 100}}>
-        <Rank onChange={handleRankChange} />
-        <Suit onChange={handleSuitChange} />
+        <Grid container>
+            <Grid item>
+                <Rank onChange={handleRankChange} />
+            </Grid>
+            <Grid item>
+                <Suit onChange={handleSuitChange} />
+            </Grid>
+        </Grid>
     </Box>);
 };
 

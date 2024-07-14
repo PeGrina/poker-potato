@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import Slider from '@mui/material/Slider';
 import Player from './Player';
-import { ranks, suits, getCardInfo } from './utils';
-import {Typography} from "@mui/material";
+import {maxPlayersCount} from './utils';
+
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
 
@@ -39,57 +40,38 @@ function a11yProps(index) {
 const App = () => {
     const [value, setValue] = React.useState(0);
     const [playerCount, setPlayerCount] = React.useState(2);
-    const [player, setPlayer] =
-        React.useState({cards: [{rank: 0, suit: 0}, {rank: 0, suit: 0}]});
-
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
     const handleSliderPlayerChange = (event, val) => {
         setPlayerCount(val);
     };
-    const handlePlayerChange = (val) => {
-        console.log(val);
-        setPlayer(val);
-    }
+
     const valueSliderPlayer = (value) => {
         return `${value} Players`;
     };
-    const marksPlayerSlider = [
-        {
-            value: 2,
-            label: '2',
-        },
-        {
-            value: 3,
-            label: '3',
-        },
-        {
-            value: 4,
-            label: '4',
-        },
-        {
-            value: 5,
-            label: '5',
-        },
-        {
-            value: 6,
-            label: '6',
-        },
-        {
-            value: 7,
-            label: '7',
-        },
-        {
-            value: 8,
-            label: '8',
+    const marksPlayerSlider = [];
+    const Players = [];
+    const players = {};
+    for (let i = 2; i <= maxPlayersCount; i++) {
+        marksPlayerSlider.push({value: i, label: `${i}`});
+    }
+    for (let i = 1; i <= maxPlayersCount; i++) {
+        players[i] = {cards: [{rank: 0, suit: 0}, {rank: 0, suit: 0}]};
+    }
+    for (let i = 1; i <= maxPlayersCount; i++) {
+        const handlePlayerChange = (val) => {
+            players[i] = val;
         }
-    ];
-
+        Players.push({
+            onChange: handlePlayerChange,
+            i
+        });
+    }
     return (
         <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                <Tabs value={value} onChange={handleChange} aria-label="navbar" centered>
                     <Tab label="Главная" {...a11yProps(0)} />
                     <Tab label="Калькулятор" {...a11yProps(1)} />
                     <Tab label="О нас" {...a11yProps(2)} />
@@ -111,13 +93,23 @@ const App = () => {
                         onChange={handleSliderPlayerChange}
                         marks={marksPlayerSlider}
                         min={2}
-                        max={8}
+                        max={maxPlayersCount}
                     />
                     You selected: {playerCount} players
                 </Box>
-                <Box sx={{width: 300}}>
-                    <Typography variant="div" color="textSecondary">Selected cards: {player.cards.map((card, i) => getCardInfo(card) + " ")}</Typography>
-                    <Player onChange={handlePlayerChange}/>
+                <Box sx={{width: '100%'}}>
+                    <Grid container spacing={2}>
+                        {Players.map((player, index) => {
+                            if (index < playerCount) {
+                                return (
+                                    <Grid item xs={3}>
+                                        <Player onChange={player.onChange} num={player.i}/>
+                                    </Grid>
+                                )
+                            }
+                            })
+                        }
+                    </Grid>
                 </Box>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={2}>
