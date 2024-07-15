@@ -1,10 +1,9 @@
 # Combination is a pair of (Nominal of Combination, 5 Cards in order) Also 5 cards in order means that at the start
 # of combo selected that cards who are play in nominal, then other cards in non-increasing order
 
-from utils.utils import check_card
-from game.combination.determine_combination import determine_combination
-from game.card.card import Card
-from game.combination.rank_names import get_combination_name_by_rank
+from src.utils.utils import check_card
+from src.combination.determine_combination import determine_combination
+from src.combination.rank_names import get_combination_name_by_rank
 
 
 class Combination:

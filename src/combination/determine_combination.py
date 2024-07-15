@@ -1,4 +1,4 @@
-from game.card.get_card_rank import get_value_rank
+from src.card.get_card_rank import get_value_rank
 
 
 def is_one_pair(ordered_cards):

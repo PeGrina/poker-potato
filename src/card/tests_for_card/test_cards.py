@@ -1,6 +1,6 @@
 import unittest
 
-from game.card.card import Card
+from src.card.card import Card
 
 
 def create_card(rank, suit):

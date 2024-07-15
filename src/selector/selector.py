@@ -1,4 +1,4 @@
-from game.combination.combination import Combination
+from src.combination.combination import Combination
 
 
 class Selector:

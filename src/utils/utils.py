@@ -1,5 +1,5 @@
-from utils.available import available_ranks, available_suits
-from game.card.card import Card
+from src.utils.available import available_ranks, available_suits
+from src.card.card import Card
 from fastapi import HTTPException
 
 
@@ -59,7 +59,7 @@ def check_table(table):
         if type(card) != str:
             return False, "Incorrect data"
 
-    return True
+    return True, ""
 
 
 def check_players(players, cnt):

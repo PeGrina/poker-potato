@@ -1,9 +1,10 @@
-from game.states.states import SSelectWinnerResponse
-from game.card.card import Card
-from game.selector.selector import Selector
+from src.states.states import SSelectWinnerResponse
+from src.card.card import Card
+from src.selector.selector import Selector
 
 
-def select_winner(table: list[str], players: list[list[str]]):
+def select_winner(players, table):
+    print(table, players)
     table_cards = []
     players_cards = []
 
@@ -20,12 +21,12 @@ def select_winner(table: list[str], players: list[list[str]]):
 
         players_cards.append(player_cards)
 
-    response = select_winner_with_cards(table_cards, players_cards)
+    response = select_winner_with_cards(players_cards, table_cards)
 
     return response
 
 
-def select_winner_with_cards(table_cards: list[Card], players_cards: list[list[Card]]):
+def select_winner_with_cards(players_cards, table_cards):
     response = SSelectWinnerResponse(players_top_combination_rank=[], players_top_combination_cards=[], winner=[])
 
     best_combo = None

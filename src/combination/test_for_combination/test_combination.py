@@ -1,8 +1,8 @@
 import unittest
 
-from game.combination.combination import Combination
-from game.card.card import Card
-from game.combination.rank_names import get_combination_rank_by_name
+from src.combination.combination import Combination
+from src.card.card import Card
+from src.combination.rank_names import get_combination_rank_by_name
 
 
 def create_combination(cards: list[Card]):

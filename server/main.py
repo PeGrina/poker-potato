@@ -1,8 +1,9 @@
 from fastapi import FastAPI
 
-from game.states.states import SPokerState
-from utils.utils import check_defined_cards, check_not_defined_cards, check_basic_cards_and_players
-from game.selector.select_winner import select_winner
+from src.selector.select_winner import select_winner
+from src.states.states import SPokerState
+from src.utils.utils import check_defined_cards, check_not_defined_cards, check_basic_cards_and_players
+from src.probability.count_probability import count_probability
 
 app = FastAPI()
 
@@ -13,9 +14,9 @@ async def root():
 
 
 @app.get("/select_winner/")
-async def select_winner(s: SPokerState):
+async def _select_winner(s: SPokerState):
     # cnt is required just for checking that all number of players if matches with the requested
-    cnt, players, table = s.number_of_players, s.playes, s.table
+    cnt, players, table = s.number_of_players, s.players, s.table
 
     error = check_basic_cards_and_players(cnt, players, table)
 
@@ -30,16 +31,19 @@ async def select_winner(s: SPokerState):
     # players and table are valid
     # want to select winner with all defined cards
 
-    response = select_winner(table, players)
+    response = select_winner(players, table)
+
+    # response is a json of
+    # players top combination rank
+    # players top combination cards
+    # players who win
 
     return response
 
 
 @app.get("/count_probability/")
-async def count_probability(s: SPokerState):
-    cnt = s.number_of_players
-    players = s.players
-    table = s.table
+async def _count_probability(s: SPokerState):
+    cnt, players, table = s.number_of_players, s.players, s.table
 
     error = check_basic_cards_and_players(cnt, players, table)
 
@@ -58,6 +62,10 @@ async def count_probability(s: SPokerState):
     # 2) cards with defined rank
     # 3) cards with defined suit
     # 4) other cards
+
+    response = count_probability(players, table)
+
+    return response
 
 
 

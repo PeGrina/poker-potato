@@ -1,6 +1,6 @@
-from utils.available import available_ranks, available_suits
+from src.utils.available import available_ranks, available_suits
 
-from game.card.get_card_rank import get_value_rank
+from src.card.get_card_rank import get_value_rank
 
 
 class Card:
