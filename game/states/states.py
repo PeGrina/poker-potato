@@ -7,7 +7,11 @@ class SPokerState(BaseModel):
     table: list[str]
 
 
-class SSelectWinnerGet(BaseModel):
+class SSelectWinnerResponse(BaseModel):
     players_top_combination_rank: list[str]
     players_top_combination_cards: list[list[str]]
-    winner: int
+    winner: list[int]
+
+
+class SProbabilityCountResponse(BaseModel):
+    pass

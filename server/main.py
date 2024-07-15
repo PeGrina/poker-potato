@@ -1,9 +1,8 @@
-from game.card.card import Card
-from game.selector.selector import Selector
-from game.combination.combination import Combination
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 
-from server.states import SPokerState, SSelectWinnerGet
+from game.states.states import SPokerState
+from utils.utils import check_defined_cards, check_not_defined_cards, check_basic_cards_and_players
+from game.selector.select_winner import select_winner
 
 app = FastAPI()
 
@@ -15,68 +14,51 @@ async def root():
 
 @app.get("/select_winner/")
 async def select_winner(s: SPokerState):
+    # cnt is required just for checking that all number of players if matches with the requested
+    cnt, players, table = s.number_of_players, s.playes, s.table
+
+    error = check_basic_cards_and_players(cnt, players, table)
+
+    if error != 0:
+        return error
+
+    error = check_defined_cards(players, table)
+
+    if error != 0:
+        return error
+
+    # players and table are valid
+    # want to select winner with all defined cards
+
+    response = select_winner(table, players)
+
+    return response
+
+
+@app.get("/count_probability/")
+async def count_probability(s: SPokerState):
     cnt = s.number_of_players
     players = s.players
     table = s.table
-    if cnt is None or players is None or table is None:
-        return HTTPException(400, "Incorrect data")
 
-    if type(cnt) != int:
-        return HTTPException(400, "Incorrect data")
+    error = check_basic_cards_and_players(cnt, players, table)
 
-    if type(players) != list:
-        return HTTPException(400, "Incorrect data")
+    if error != 0:
+        return error
 
-    if type(table) != list:
-        return HTTPException(400, "Incorrect data")
+    error = check_not_defined_cards(players, table)
 
-    if len(players) != cnt:
-        return HTTPException(400, "length of players and their count do not match")
+    if error != 0:
+        return error
 
-    table_cards = []
+    # players and table are valid
 
-    for card in table:
-        if type(card) != str:
-            return HTTPException(400, "Incorrect data")
-        try:
-            c = Card(card[0], card[1])
-            table_cards.append(c)
-        except Exception as error:
-            return HTTPException(400, error)
+    # want to reorder cards to count in this order
+    # 1) cards with defined suits and rank
+    # 2) cards with defined rank
+    # 3) cards with defined suit
+    # 4) other cards
 
-    response = SSelectWinnerGet(players_top_combination_rank=[], players_top_combination_cards=[], winner=0)
 
-    best_combo = None
 
-    for i in range(len(players)):
-        hand = players[i]
-        if type(hand) != list:
-            return HTTPException(400, "Incorrect data")
 
-        player_cards = []
-
-        if len(hand) != 2:
-            return HTTPException(400, "Incorrect data")
-        for card in hand:
-            if len(card) != 2:
-                return HTTPException(400, "Incorrect data")
-            try:
-                c = Card(card[0], card[1])
-                player_cards.append(c)
-            except Exception as error:
-                return HTTPException(400, "error")
-
-        summary = []
-        for card in player_cards:
-            summary.append(card)
-        for card in table_cards:
-            summary.append(card)
-
-        s = Selector(summary)
-        response.players_top_combination_rank.append(s.best_combination.get_rank_str())
-        response.players_top_combination_cards.append(s.best_combination.get_sorted_cards_str())
-
-        if best_combo is None or best_combo < s.best_combination:
-            best_combo = s.best_combination
-            response.winner = i
-    return response

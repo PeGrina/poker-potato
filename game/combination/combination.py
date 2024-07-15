@@ -1,7 +1,7 @@
 # Combination is a pair of (Nominal of Combination, 5 Cards in order) Also 5 cards in order means that at the start
 # of combo selected that cards who are play in nominal, then other cards in non-increasing order
 
-from utils.utils import check_is_it_card
+from utils.utils import check_card
 from game.combination.determine_combination import determine_combination
 from game.card.card import Card
 from game.combination.rank_names import get_combination_name_by_rank
@@ -20,7 +20,7 @@ class Combination:
         if len(self.cards) != 5:
             raise Exception("Not valid number of cards")
         for card in self.cards:
-            if not check_is_it_card(card):
+            if not check_card(card):
                 raise Exception("Your input contains invalid data")
 
     def __init__(self, cards):
