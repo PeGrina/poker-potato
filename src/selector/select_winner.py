@@ -4,7 +4,7 @@ from src.selector.selector import Selector
 
 
 def select_winner(players, table):
-    print(table, players)
+    # print(table, players)
     table_cards = []
     players_cards = []
 

@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-
+from typing import Dict
 
 class SPokerState(BaseModel):
     number_of_players: int
@@ -14,4 +14,5 @@ class SSelectWinnerResponse(BaseModel):
 
 
 class SProbabilityCountResponse(BaseModel):
-    pass
+    players_probability_to_win: list[float]
+    players_chance_combinations: list[Dict[str, float]]
