@@ -1,4 +1,4 @@
-from src.card.numeration import *
+from src.card.card_numeration import *
 from src.states.states import SProbabilityCountResponse
 from src.selector.selector import Selector
 from src.selector.select_winner import select_winner_with_cards

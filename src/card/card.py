@@ -1,39 +1,43 @@
 from src.utils.available import available_ranks, available_suits
 
-from src.card.get_card_rank import get_value_rank
+from src.card.get_card_names import get_name_by_rank, get_rank_by_name, get_suit_by_name, get_name_by_suit
 
 
 class Card:
-
     def create_card(self, _rank: str, _suit: str):
-        self.rank = _rank
-        self.suit = _suit
-
-        if not self.rank in available_ranks and not _suit in available_suits:
+        if type(_rank) != str or type(_suit) != str:
+            raise TypeError("Argument must be of type str")
+        if not _rank in available_ranks and not _suit in available_suits:
             raise Exception("Rank and Suit are invalid")
-        if not self.suit in available_suits:
+        if not _suit in available_suits:
             raise Exception("Suit is invalid")
-        if not self.rank in available_ranks:
+        if not _rank in available_ranks:
             raise Exception("Rank is invalid")
 
-    def __init__(self, rank, suit):
+        self.rank = get_rank_by_name[_rank]
+        self.suit = get_suit_by_name[_suit]
+
+    def __init__(self, _rank, _suit):
         self.suit = None
         self.rank = None
-        self.create_card(rank, suit)
+        self.create_card(_rank, _suit)
 
     def get_rank(self):  # get highest value for rank
-        return get_value_rank[self.rank][-1]
+        return self.rank
 
     def get_suit(self):  # just getter for suit
         return self.suit
 
-    def get_ranks(self):  # get all values for rank
-        return get_value_rank[self.rank]
+    def get_rank_name(self):
+        return get_name_by_rank[self.rank]
+
+    def get_suit_name(self):
+        return get_suit_by_name[self.suit]
 
     def __lt__(self, other):
-        if self.get_rank() == other.get_rank():
-            return self.get_suit() < other.get_suit()
-        return self.get_rank() < other.get_rank()
+        if self.rank == other.rank:
+            return self.suit < other.suit
+        return self.rank < other.rank
 
     def __str__(self):
-        return "(" + str(self.rank) + str(", ") + str(self.suit) + ")"
+        return "(" + self.get_rank_name() + str(", ") + self.get_suit_name() + ")"
