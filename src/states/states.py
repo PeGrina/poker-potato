@@ -6,6 +6,11 @@ class SPokerState(BaseModel):
     players: list[list[str]]
     table: list[str]
 
+class SPokerStateProbability(BaseModel):
+    number_of_players: int
+    players: list[list[str]]
+    table: list[str]
+    using_random: bool
 
 class SSelectWinnerResponse(BaseModel):
     players_top_combination_rank: list[str]

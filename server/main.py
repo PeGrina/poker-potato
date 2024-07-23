@@ -1,10 +1,11 @@
 from fastapi import FastAPI
 
 from src.selector.select_winner import select_winner
-from src.states.states import SPokerState
+from src.states.states import SPokerState, SPokerStateProbability
 from src.utils.utils import check_defined_cards, check_not_defined_cards, check_basic_cards_and_players
-from src.probability.count_probability_using_random import count_probability
-
+import src.probability as prob
+from src.probability.count_probability_using_random import count_probability as random_probability
+from src.probability.count_probability import count_probability as determination_probability
 app = FastAPI()
 
 
@@ -42,8 +43,8 @@ async def _select_winner(s: SPokerState):
 
 
 @app.get("/count_probability/")
-async def _count_probability(s: SPokerState):
-    cnt, players, table = s.number_of_players, s.players, s.table
+async def _count_probability(s: SPokerStateProbability):
+    cnt, players, table, using_random = s.number_of_players, s.players, s.table, s.using_random
 
     error = check_basic_cards_and_players(cnt, players, table)
 
@@ -63,9 +64,10 @@ async def _count_probability(s: SPokerState):
     # 3) cards with defined suit
     # 4) other cards
 
-    response = count_probability(players, table)
-
-    return response
+    if using_random:
+        return random_probability(players, table)
+    else:
+        return determination_probability(players, table)
 
 
 

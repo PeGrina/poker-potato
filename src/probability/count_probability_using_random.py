@@ -39,7 +39,7 @@ def go_random(i, all_possible_cards, used, selected_cards, change_response_fn):
     used[card] = False
 
 
-def count_all_iterative(all_possible_cards, selected_cards, count_players, response, iters=3000):
+def count_all_iterative(all_possible_cards, selected_cards, count_players, response, iters=1500):
     used = np.zeros(52, dtype=bool)
     outcomes = 0
 
