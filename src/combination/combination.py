@@ -57,5 +57,10 @@ class Combination:
         if self == other:
             return False
         if self.rank_combination == other.rank_combination:
-            return self.sorted_cards < other.sorted_cards
+            for j in range(min(len(self.sorted_cards), len(other.sorted_cards))):
+                if self.sorted_cards[j].rank < other.sorted_cards[j].rank:
+                    return True
+                elif self.sorted_cards[j].rank > other.sorted_cards[j].rank:
+                    return False
+            return False
         return self.rank_combination < other.rank_combination

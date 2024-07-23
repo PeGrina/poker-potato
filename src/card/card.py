@@ -32,7 +32,7 @@ class Card:
         return get_name_by_rank[self.rank]
 
     def get_suit_name(self):
-        return get_suit_by_name[self.suit]
+        return get_name_by_suit[self.suit]
 
     def __lt__(self, other):
         if self.rank == other.rank:

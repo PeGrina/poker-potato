@@ -15,12 +15,6 @@ def check_card(__card: Card) -> bool:
     if type(__card) != type(_card):
         return False
 
-    if __card.rank not in available_ranks:
-        return False
-
-    if __card.suit not in available_suits:
-        return False
-
     return True
 
 

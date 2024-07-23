@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from src.selector.select_winner import select_winner
 from src.states.states import SPokerState
 from src.utils.utils import check_defined_cards, check_not_defined_cards, check_basic_cards_and_players
-from src.probability.count_probability import count_probability
+from src.probability.count_probability_using_random import count_probability
 
 app = FastAPI()
 
